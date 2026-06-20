@@ -258,6 +258,7 @@
   }
   .status-pill.live{color:var(--verde);}
   .status-pill.pilot{color:var(--amber);}
+  .status-pill.paused{color:var(--ink-dim);}
 
   .dossier-body{padding:28px 32px 32px;}
   .dossier-stats{
@@ -326,6 +327,27 @@
     gap:8px;
   }
   .module-chip .dot{width:5px;height:5px;border-radius:50%;background:var(--verde);flex-shrink:0;}
+
+  .scope-note{
+    margin-top:22px;
+    padding:16px 20px;
+    background:rgba(91,131,168,0.07);
+    border:1px solid rgba(91,131,168,0.3);
+    border-left:3px solid var(--azul);
+    border-radius:4px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--ink-dim);
+  }
+  .scope-note-label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--azul);
+    display:block;
+    margin-bottom:6px;
+  }
 
   /* ───────── independent modules grid ───────── */
   .mod-grid{
@@ -456,7 +478,8 @@
     <div class="brand"><span class="mark"></span> IQ — FORENSE DIGITAL</div>
     <nav>
       <a href="#captureiq">CaptureIQ</a>
-      <a href="#quickwizard">Extracción Rápida</a>
+      <a href="#strikeiq">StrikeIQ</a>
+      <a href="#aporteiq">AporteIQ</a>
       <a href="#forensiq">ForensIQ</a>
       <a href="#modulos">Módulos</a>
       <a href="#contacto">Contacto</a>
@@ -468,18 +491,19 @@
 <section class="docket">
   <div class="wrap">
     <div class="docket-label">Expediente técnico · suite de productos</div>
-    <h1 class="title">Herramientas forenses digitales para <em>peritaje judicial</em> argentino.</h1>
+    <h1 class="title">Herramientas forenses digitales para <em>peritaje judicial</em>.</h1>
     <p class="docket-sub">
-      IQ reúne CaptureIQ, ForensIQ y un conjunto de módulos forenses independientes,
-      desarrollados para extracción, preservación y análisis de evidencia digital
-      con cadena de custodia, hash SHA-256 e IA local sin conexión a internet.
+      IQ reúne CaptureIQ, AporteIQ y un conjunto de módulos forenses independientes,
+      desarrollados para identificación, adquisición y preservación de evidencia digital
+      ya aportada o secuestrada — con cadena de custodia, hash SHA-256 e IA local sin
+      conexión a internet. Alineado a los lineamientos de ISO/IEC 27037.
     </p>
 
     <div class="docket-meta">
       <div class="item"><span class="k">Origen</span><span class="v">Río Cuarto, Córdoba, AR</span></div>
       <div class="item"><span class="k">Estado</span><span class="v verde">En despliegue activo</span></div>
       <div class="item"><span class="k">Cliente de referencia</span><span class="v">Procuración General — San Luis</span></div>
-      <div class="item"><span class="k">Licencia</span><span class="v amber">Uso pericial exclusivo</span></div>
+      <div class="item"><span class="k">Marco de referencia</span><span class="v amber">ISO/IEC 27037</span></div>
     </div>
 
     <div class="terminal" role="img" aria-label="Demostración de terminal de extracción forense">
@@ -535,6 +559,58 @@
           <div class="module-chip"><span class="dot"></span>Geolocalización EXIF</div>
           <div class="module-chip"><span class="dot"></span>Informe PDF pericial</div>
         </div>
+
+        <div class="scope-note">
+          <span class="scope-note-label">Alcance</span>
+          CaptureIQ opera sobre evidencia ya aportada o sobre dispositivos secuestrados
+          y desbloqueados. No incluye herramientas de desbloqueo ni explotación de
+          vulnerabilidades de hardware — esa etapa, cuando es necesaria, queda fuera
+          del alcance del software y corresponde a procedimientos previos del organismo.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="aporteiq" class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Producto 02 · nuevo foco</div>
+      <h2>AporteIQ</h2>
+      <p>Gestión de evidencia digital aportada o secuestrada, alineada a los lineamientos
+        de identificación, adquisición y preservación de ISO/IEC 27037. Pensado como
+        necesidad diaria de cualquier organismo que reciba evidencia digital, sin importar
+        la jurisdicción.</p>
+    </div>
+
+    <div class="dossier">
+      <div class="dossier-head">
+        <div>
+          <div class="dossier-id">APORTEIQ · EN DESARROLLO</div>
+          <div class="dossier-name">AporteIQ</div>
+          <div class="dossier-tag">Registro, hash de preservación y trazabilidad de evidencia digital aportada por terceros o secuestrada en dispositivos ya desbloqueados.</div>
+        </div>
+        <span class="status-pill pilot">EN DESARROLLO</span>
+      </div>
+      <div class="dossier-body">
+        <div class="video-slot" data-video="aporteiq-demo">
+          <div class="ph">
+            <div class="play"></div>
+            <span class="vlabel">DEMO — APORTEIQ (PRÓXIMAMENTE)</span>
+          </div>
+        </div>
+        <div class="module-list">
+          <div class="module-chip"><span class="dot"></span>Identificación de fuente</div>
+          <div class="module-chip"><span class="dot"></span>Adquisición con hash</div>
+          <div class="module-chip"><span class="dot"></span>Preservación verificable</div>
+          <div class="module-chip"><span class="dot"></span>Cadena de custodia</div>
+        </div>
+        <div class="scope-note">
+          <span class="scope-note-label">Marco de referencia</span>
+          Diseñado siguiendo los lineamientos de ISO/IEC 27037 para identificación,
+          recolección, adquisición y preservación de evidencia digital — guías, no
+          procedimientos rígidos, lo que permite adaptarse a distintas jurisdicciones.
+        </div>
       </div>
     </div>
   </div>
@@ -543,10 +619,10 @@
 <section id="forensiq" class="tight">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Producto 02</div>
+      <div class="eyebrow">Producto 03</div>
       <h2>ForensIQ</h2>
-      <p>El primer producto de la familia IQ. Ya en uso institucional en la Procuración
-        General de San Luis (DIDC).</p>
+      <p>El primer producto de la familia IQ. En uso institucional en un organismo
+        de referencia.</p>
     </div>
 
     <div class="dossier">
@@ -577,11 +653,11 @@
   </div>
 </section>
 
-<section id="quickwizard" class="tight">
+<section id="strikeiq" class="tight">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Novedad · v3.6</div>
-      <h2>Extracción Rápida</h2>
+      <h2>StrikeIQ</h2>
       <p>Un solo botón. El perito selecciona qué módulos necesita y CaptureIQ ejecuta
         todo el flujo de forma automática: preservación de hash, extracción, descifrado,
         análisis con IA e informe pericial final.</p>
@@ -590,8 +666,8 @@
     <div class="dossier">
       <div class="dossier-head">
         <div>
-          <div class="dossier-id">QUICK-WIZARD · MÓDULO ORQUESTADOR · CAPTUREIQ v3.6</div>
-          <div class="dossier-name">Extracción Rápida</div>
+          <div class="dossier-id">STRIKEIQ · MÓDULO ORQUESTADOR · CAPTUREIQ v3.6</div>
+          <div class="dossier-name">StrikeIQ</div>
           <div class="dossier-tag">Pensado para peritos que no necesitan recorrer 31 pestañas — tildan lo que precisan y ejecutan todo en una sola corrida.</div>
         </div>
         <span class="status-pill pilot">NUEVO</span>
@@ -604,10 +680,10 @@
           <div class="stat"><span class="n">PDF</span><span class="l">Informe automático</span></div>
         </div>
 
-        <div class="video-slot" data-video="quickwizard-demo">
+        <div class="video-slot" data-video="strikeiq-demo">
           <div class="ph">
             <div class="play"></div>
-            <span class="vlabel">DEMO — EXTRACCIÓN RÁPIDA DE UN CLIC (PRÓXIMAMENTE)</span>
+            <span class="vlabel">DEMO — STRIKEIQ, EXTRACCIÓN DE UN CLIC (PRÓXIMAMENTE)</span>
           </div>
         </div>
 
@@ -636,21 +712,16 @@
     <div class="mod-grid">
       <div class="mod-card">
         <div class="num">M·01</div>
-        <h3>Espejo Forense</h3>
-        <p>Duplicación bit a bit de dispositivos con verificación de hash SHA-256/MD5/SHA-1 y análisis IA del volcado.</p>
-      </div>
-      <div class="mod-card">
-        <div class="num">M·02</div>
         <h3>Extracción Nube</h3>
         <p>Acceso a Google Drive, iCloud, Dropbox y OneDrive vía tokens OAuth2, con clasificación automática de archivos.</p>
       </div>
       <div class="mod-card">
-        <div class="num">M·03</div>
+        <div class="num">M·02</div>
         <h3>MercadoLibre Forense</h3>
         <p>Identidad real, historial de ventas/compras y mensajería post-venta — clave en causas de estafa y reventa.</p>
       </div>
       <div class="mod-card">
-        <div class="num">M·04</div>
+        <div class="num">M·03</div>
         <h3>Cripto Rastreo</h3>
         <p>Detección de wallets BTC/ETH/TRX en archivos del dispositivo con consulta directa a blockchain pública.</p>
       </div>
@@ -691,7 +762,7 @@
 
 <footer>
   <div class="wrap">
-    <span>IQ FORENSE DIGITAL — DESARROLLADO EN ARGENTINA</span>
+    <span>IQ FORENSE DIGITAL</span>
     <span>USO PERICIAL EXCLUSIVO · 2026</span>
   </div>
 </footer>
