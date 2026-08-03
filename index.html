@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IQ — Suite de Herramientas Forenses Digitales</title>
+<title>AporteForense Suite — Evidencia digital de WhatsApp, lista para el expediente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ═══════════════ tokens — idénticos a index.html ═══════════════ */
   :root{
     --bg:#0B0D10;
     --bg-raised:#13161A;
@@ -34,433 +35,161 @@
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;text-decoration:none;}
-
-  /* ───────── focus visibility ───────── */
-  a:focus-visible, button:focus-visible{
-    outline:2px solid var(--amber);
-    outline-offset:3px;
-  }
-
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
   }
-
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
 
-  /* ───────── header / case-file strip ───────── */
+  /* ───────── header ───────── */
   header{
-    border-bottom:1px solid var(--rule);
-    padding:18px 0;
-    position:sticky;top:0;
-    background:rgba(11,13,16,0.92);
-    backdrop-filter:blur(8px);
-    z-index:50;
+    border-bottom:1px solid var(--rule); padding:18px 0; position:sticky; top:0;
+    background:rgba(11,13,16,0.92); backdrop-filter:blur(8px); z-index:50;
   }
   .header-row{display:flex;align-items:center;justify-content:space-between;}
-  .brand{
-    font-family:var(--mono);
-    font-size:14px;
-    letter-spacing:0.12em;
-    color:var(--ink);
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .brand .mark{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--amber);
-    box-shadow:0 0 0 3px rgba(212,162,76,0.15);
-  }
+  .brand{font-family:var(--mono);font-size:14px;letter-spacing:0.12em;color:var(--ink);display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px rgba(212,162,76,0.15);}
+  .brand .back{font-size:12px;color:var(--ink-dim);font-weight:400;letter-spacing:0.06em;}
+  .brand .back:hover{color:var(--amber);}
   nav{display:flex;gap:28px;font-size:13px;color:var(--ink-dim);}
   nav a{transition:color .15s ease;}
   nav a:hover{color:var(--ink);}
   .header-row .wa-mini{
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--verde);
-    border:1px solid rgba(74,155,110,0.4);
-    padding:6px 12px;
-    border-radius:3px;
+    font-family:var(--mono);font-size:12px;color:var(--verde);
+    border:1px solid rgba(74,155,110,0.4);padding:6px 12px;border-radius:3px;
   }
   .header-row .wa-mini:hover{background:rgba(74,155,110,0.08);}
+  @media (max-width:760px){ nav{display:none;} }
 
-  @media (max-width:720px){ nav{display:none;} }
-
-  /* ───────── hero: ficha de expediente ───────── */
-  .docket{
-    padding:96px 0 64px;
-    border-bottom:1px solid var(--rule);
-  }
+  /* ───────── hero (docket) ───────── */
+  .docket{padding:96px 0 64px;border-bottom:1px solid var(--rule);}
   .docket-label{
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:0.18em;
-    color:var(--amber);
-    text-transform:uppercase;
-    margin-bottom:22px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+    font-family:var(--mono);font-size:12px;letter-spacing:0.18em;color:var(--amber);
+    text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;
   }
-  .docket-label::before{
-    content:'';
-    width:22px;height:1px;
-    background:var(--amber-dim);
-  }
+  .docket-label::before{content:'';width:22px;height:1px;background:var(--amber-dim);}
   h1.title{
-    font-family:var(--display);
-    font-weight:500;
-    font-size:clamp(40px, 6vw, 68px);
-    line-height:1.04;
-    letter-spacing:-0.01em;
-    max-width:780px;
-    color:var(--ink);
+    font-family:var(--display);font-weight:500;font-size:clamp(38px, 5.6vw, 62px);
+    line-height:1.06;letter-spacing:-0.01em;max-width:760px;color:var(--ink);
   }
-  h1.title em{
-    font-style:italic;
-    color:var(--amber);
-  }
-  .docket-sub{
-    margin-top:24px;
-    font-size:18px;
-    color:var(--ink-dim);
-    max-width:560px;
-    line-height:1.65;
-  }
-  .docket-meta{
-    margin-top:40px;
-    display:flex;
-    gap:36px;
-    flex-wrap:wrap;
-    font-family:var(--mono);
-    font-size:13px;
-  }
+  h1.title em{font-style:italic;color:var(--amber);}
+  .docket-sub{margin-top:24px;font-size:18px;color:var(--ink-dim);max-width:560px;line-height:1.65;}
+  .docket-meta{margin-top:40px;display:flex;gap:36px;flex-wrap:wrap;font-family:var(--mono);font-size:13px;}
   .docket-meta .item{display:flex;flex-direction:column;gap:4px;}
   .docket-meta .k{color:var(--ink-dim);letter-spacing:0.06em;font-size:11px;text-transform:uppercase;}
   .docket-meta .v{color:var(--ink);}
   .docket-meta .v.amber{color:var(--amber);}
   .docket-meta .v.verde{color:var(--verde);}
-
-  /* ───────── terminal signature ───────── */
-  .terminal{
-    margin-top:56px;
-    background:var(--bg-raised);
-    border:1px solid var(--rule);
-    border-radius:6px;
-    overflow:hidden;
-    max-width:680px;
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px;}
+  .btn{
+    font-family:var(--mono);font-size:13.5px;padding:13px 22px;border-radius:5px;
+    display:inline-flex;align-items:center;gap:8px;transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
-  .terminal-bar{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 14px;
-    border-bottom:1px solid var(--rule);
-    background:var(--bg-card);
-  }
-  .terminal-bar .dot{width:9px;height:9px;border-radius:50%;background:#3A3D41;}
-  .terminal-bar .fname{
-    margin-left:8px;
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--ink-dim);
-  }
-  .terminal-body{
-    padding:18px 20px 22px;
-    font-family:var(--mono);
-    font-size:13px;
-    line-height:1.9;
-    min-height:168px;
-  }
-  .terminal-body .line{opacity:0;animation:reveal 0.3s ease forwards;}
-  .terminal-body .prompt{color:var(--amber);}
-  .terminal-body .ok{color:var(--verde);}
-  .terminal-body .dim{color:var(--ink-dim);}
-  .cursor{
-    display:inline-block;width:7px;height:14px;
-    background:var(--amber);
-    animation:blink 1s steps(1) infinite;
-    vertical-align:middle;
-  }
-  @keyframes reveal{to{opacity:1;}}
-  @keyframes blink{50%{opacity:0;}}
+  .btn-primary{background:var(--verde);color:#0B0D10;font-weight:600;}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(74,155,110,0.25);}
+  .btn-ghost{border:1px solid var(--rule);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--amber-dim); color:var(--amber);}
 
   /* ───────── section shell ───────── */
   section{padding:88px 0;}
   section.tight{padding:64px 0;}
   .section-head{margin-bottom:48px;max-width:620px;}
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--amber-dim);
-    margin-bottom:14px;
-  }
-  h2{
-    font-family:var(--display);
-    font-weight:500;
-    font-size:clamp(28px,3.4vw,38px);
-    letter-spacing:-0.01em;
-    color:var(--ink);
-  }
-  .section-head p{
-    margin-top:14px;
-    color:var(--ink-dim);
-    font-size:16px;
-    line-height:1.65;
-  }
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--amber-dim);margin-bottom:14px;}
+  h2{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.4vw,38px);letter-spacing:-0.01em;color:var(--ink);}
+  .section-head p{margin-top:14px;color:var(--ink-dim);font-size:16px;line-height:1.65;}
 
-  /* ───────── product dossiers ───────── */
-  .dossier{
-    border:1px solid var(--rule);
-    border-radius:8px;
-    background:var(--bg-card);
-    margin-bottom:24px;
-    overflow:hidden;
-  }
-  .dossier-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    padding:28px 32px;
-    border-bottom:1px solid var(--rule);
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .dossier-id{
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--ink-dim);
-    letter-spacing:0.08em;
-    margin-bottom:10px;
-  }
-  .dossier-name{
-    font-family:var(--display);
-    font-size:28px;
-    font-weight:500;
-    color:var(--ink);
-  }
-  .dossier-tag{
-    font-size:14px;
-    color:var(--ink-dim);
-    margin-top:6px;
-    max-width:420px;
-  }
-  .status-pill{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.06em;
-    padding:6px 12px;
-    border-radius:20px;
-    white-space:nowrap;
-    border:1px solid currentColor;
-  }
+  /* ───────── dossier (idéntico a index.html) ───────── */
+  .dossier{border:1px solid var(--rule);border-radius:8px;background:var(--bg-card);margin-bottom:24px;overflow:hidden;}
+  .dossier-head{display:flex;align-items:flex-start;justify-content:space-between;padding:28px 32px;border-bottom:1px solid var(--rule);gap:20px;flex-wrap:wrap;}
+  .dossier-id{font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:0.08em;margin-bottom:10px;}
+  .dossier-name{font-family:var(--display);font-size:28px;font-weight:500;color:var(--ink);}
+  .dossier-tag{font-size:14px;color:var(--ink-dim);margin-top:6px;max-width:460px;}
+  .status-pill{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;padding:6px 12px;border-radius:20px;white-space:nowrap;border:1px solid currentColor;}
   .status-pill.live{color:var(--verde);}
   .status-pill.pilot{color:var(--amber);}
-  .status-pill.paused{color:var(--ink-dim);}
-
   .dossier-body{padding:28px 32px 32px;}
-  .dossier-stats{
-    display:flex;
-    gap:36px;
-    flex-wrap:wrap;
-    margin-bottom:28px;
-    padding-bottom:24px;
-    border-bottom:1px solid var(--rule);
-  }
+  .dossier-stats{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--rule);}
   .dossier-stats .stat{font-family:var(--mono);}
   .dossier-stats .stat .n{font-size:22px;color:var(--amber);display:block;}
   .dossier-stats .stat .l{font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:0.05em;}
 
+  /* ───────── video-slot (idéntico a index.html, + variante "foto") ───────── */
   .video-slot{
-    background:#000;
-    border:1px solid var(--rule);
-    border-radius:6px;
-    aspect-ratio:16/9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
-    margin-bottom:24px;
-    cursor:pointer;
+    background:#000;border:1px solid var(--rule);border-radius:6px;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;position:relative;
+    overflow:hidden;margin-bottom:24px;cursor:pointer;
   }
   .video-slot video{width:100%;height:100%;object-fit:cover;display:none;}
-  .video-slot .ph{
-    text-align:center;
-    color:var(--ink-dim);
-  }
+  .video-slot .ph{text-align:center;color:var(--ink-dim);}
   .video-slot .play{
-    width:54px;height:54px;
-    border-radius:50%;
-    border:1.5px solid var(--amber);
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 14px;
+    width:54px;height:54px;border-radius:50%;border:1.5px solid var(--amber);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
     transition:transform .2s ease, background .2s ease;
   }
   .video-slot:hover .play{transform:scale(1.06); background:rgba(212,162,76,0.08);}
   .video-slot .play::after{
-    content:'';
-    border-style:solid;
-    border-width:8px 0 8px 13px;
-    border-color:transparent transparent transparent var(--amber);
-    margin-left:3px;
+    content:'';border-style:solid;border-width:8px 0 8px 13px;
+    border-color:transparent transparent transparent var(--amber);margin-left:3px;
+  }
+  .video-slot.foto .play::after{
+    /* ícono de cámara en vez de play, para el slot de imagen */
+    border:none;width:16px;height:12px;margin-left:0;
+    background:transparent;border:1.5px solid var(--amber);border-radius:2px;
   }
   .video-slot .ph .vlabel{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;}
 
-  .module-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
-    gap:10px;
-  }
+  .module-list{display:grid;grid-template-columns:repeat(auto-fill, minmax(200px,1fr));gap:10px;}
   .module-chip{
-    font-family:var(--mono);
-    font-size:12.5px;
-    padding:9px 13px;
-    background:var(--bg-raised);
-    border:1px solid var(--rule);
-    border-radius:4px;
-    color:var(--ink-dim);
-    display:flex;
-    align-items:center;
-    gap:8px;
+    font-family:var(--mono);font-size:12.5px;padding:9px 13px;background:var(--bg-raised);
+    border:1px solid var(--rule);border-radius:4px;color:var(--ink-dim);
+    display:flex;align-items:center;gap:8px;
   }
   .module-chip .dot{width:5px;height:5px;border-radius:50%;background:var(--verde);flex-shrink:0;}
 
   .scope-note{
-    margin-top:22px;
-    padding:16px 20px;
-    background:rgba(91,131,168,0.07);
-    border:1px solid rgba(91,131,168,0.3);
-    border-left:3px solid var(--azul);
-    border-radius:4px;
-    font-size:13.5px;
-    line-height:1.6;
-    color:var(--ink-dim);
+    margin-top:22px;padding:16px 20px;background:rgba(91,131,168,0.07);
+    border:1px solid rgba(91,131,168,0.3);border-left:3px solid var(--azul);
+    border-radius:4px;font-size:13.5px;line-height:1.6;color:var(--ink-dim);
   }
   .scope-note-label{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--azul);
-    display:block;
-    margin-bottom:6px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--azul);display:block;margin-bottom:6px;
   }
 
-  /* ───────── independent modules grid ───────── */
-  .mod-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
-    gap:18px;
-  }
-  .mod-card{
-    border:1px solid var(--rule);
-    background:var(--bg-card);
-    border-radius:8px;
-    padding:26px;
-    transition:border-color .2s ease, transform .2s ease;
-  }
-  .mod-card:hover{border-color:var(--amber-dim); transform:translateY(-2px);}
-  .mod-card .num{
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--amber-dim);
-    margin-bottom:14px;
-  }
-  .mod-card h3{
-    font-family:var(--display);
-    font-size:20px;
-    font-weight:500;
-    margin-bottom:10px;
-  }
-  .mod-card p{font-size:14px;color:var(--ink-dim);line-height:1.6;}
+  /* ───────── galería (3 video-slots en grilla) ───────── */
+  .galeria-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px,1fr));gap:20px;}
+  .galeria-grid .video-slot{margin-bottom:0;}
+  .galeria-item figcaption{margin-top:10px;font-size:13px;color:var(--ink-dim);line-height:1.5;}
 
   /* ───────── integrity strip ───────── */
-  .integrity{
-    border-top:1px solid var(--rule);
-    border-bottom:1px solid var(--rule);
-    padding:48px 0;
-    background:var(--bg-raised);
-  }
-  .integrity .wrap{
-    display:flex;
-    gap:48px;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:space-between;
-  }
+  .integrity{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:48px 0;background:var(--bg-raised);}
+  .integrity .wrap{display:flex;gap:48px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
   .integrity-text{max-width:480px;}
   .integrity-text .eyebrow{margin-bottom:10px;}
   .integrity-text p{color:var(--ink-dim);font-size:15px;}
   .hash-block{
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--verde);
-    background:var(--bg);
-    border:1px solid rgba(74,155,110,0.25);
-    border-radius:6px;
-    padding:16px 20px;
-    line-height:1.8;
-    white-space:nowrap;
+    font-family:var(--mono);font-size:12px;color:var(--verde);background:var(--bg);
+    border:1px solid rgba(74,155,110,0.25);border-radius:6px;padding:16px 20px;
+    line-height:1.8;white-space:nowrap;
   }
   .hash-block .label{color:var(--ink-dim);}
 
   /* ───────── contact ───────── */
-  .contact{
-    text-align:center;
-    padding:100px 0 110px;
-  }
+  .contact{text-align:center;padding:100px 0 110px;}
   .contact .eyebrow{justify-content:center;display:flex;}
   .contact h2{max-width:600px;margin:0 auto;}
-  .contact p.sub{
-    max-width:480px;
-    margin:18px auto 40px;
-    color:var(--ink-dim);
-  }
+  .contact p.sub{max-width:480px;margin:18px auto 40px;color:var(--ink-dim);}
   .wa-button{
-    font-family:var(--mono);
-    font-size:14px;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:var(--verde);
-    color:#0B0D10;
-    padding:16px 30px;
-    border-radius:6px;
-    font-weight:600;
-    letter-spacing:0.02em;
-    transition:transform .15s ease, box-shadow .15s ease;
+    font-family:var(--mono);font-size:14px;display:inline-flex;align-items:center;gap:10px;
+    background:var(--verde);color:#0B0D10;padding:16px 30px;border-radius:6px;
+    font-weight:600;letter-spacing:0.02em;transition:transform .15s ease, box-shadow .15s ease;
   }
   .wa-button:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(74,155,110,0.25);}
   .wa-button svg{width:18px;height:18px;}
-  .contact-meta{
-    margin-top:36px;
-    display:flex;
-    gap:32px;
-    justify-content:center;
-    flex-wrap:wrap;
-    font-family:var(--mono);
-    font-size:13px;
-    color:var(--ink-dim);
-  }
+  .contact-meta{margin-top:36px;display:flex;gap:32px;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:13px;color:var(--ink-dim);}
 
-  footer{
-    border-top:1px solid var(--rule);
-    padding:32px 0;
-  }
-  footer .wrap{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
-    font-family:var(--mono);
-    font-size:11.5px;
-    color:var(--ink-dim);
-    letter-spacing:0.03em;
-  }
+  footer{border-top:1px solid var(--rule);padding:32px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);letter-spacing:0.03em;}
 
   @media (max-width:640px){
     .docket{padding:72px 0 48px;}
@@ -475,13 +204,14 @@
 
 <header>
   <div class="wrap header-row">
-    <div class="brand"><span class="mark"></span> IQ — FORENSE DIGITAL</div>
+    <div class="brand">
+      <span class="mark"></span> APORTEFORENSE SUITE
+      <a class="back" href="index.html">← IQ Forense Digital</a>
+    </div>
     <nav>
-      <a href="#captureiq">CaptureIQ</a>
-      <a href="#strikeiq">StrikeIQ</a>
-      <a href="#aporteiq">AporteIQ</a>
-      <a href="#forensiq">ForensIQ</a>
-      <a href="#modulos">Módulos</a>
+      <a href="#flujo">Flujo</a>
+      <a href="#galeria">Galería</a>
+      <a href="#custodia">Cadena de custodia</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a class="wa-mini" href="#contacto">WhatsApp →</a>
@@ -490,254 +220,146 @@
 
 <section class="docket">
   <div class="wrap">
-    <div class="docket-label">Expediente técnico · suite de productos</div>
-    <h1 class="title">Herramientas forenses digitales para <em>peritaje judicial</em>.</h1>
+    <div class="docket-label">Expediente técnico · producto dedicado</div>
+    <h1 class="title">Evidencia digital de WhatsApp, lista para el <em>expediente</em>.</h1>
     <p class="docket-sub">
-      IQ reúne CaptureIQ, AporteIQ y un conjunto de módulos forenses independientes,
-      desarrollados para identificación, adquisición y preservación de evidencia digital
-      ya aportada o secuestrada — con cadena de custodia, hash SHA-256 e IA local sin
-      conexión a internet. Alineado a los lineamientos de ISO/IEC 27037.
+      AporteForense Suite adquiere, extrae, visualiza y certifica la cadena de custodia
+      de un chat de WhatsApp en un único flujo guiado — sin conexión a internet,
+      sin depender de que el perito abra la app en el dispositivo.
     </p>
 
     <div class="docket-meta">
       <div class="item"><span class="k">Origen</span><span class="v">Río Cuarto, Córdoba, AR</span></div>
-      <div class="item"><span class="k">Estado</span><span class="v verde">En despliegue activo</span></div>
-      <div class="item"><span class="k">Cliente de referencia</span><span class="v">Procuración General — San Luis</span></div>
+      <div class="item"><span class="k">Estado</span><span class="v verde">Disponible para demostración</span></div>
       <div class="item"><span class="k">Marco de referencia</span><span class="v amber">ISO/IEC 27037</span></div>
     </div>
 
-    <div class="terminal" role="img" aria-label="Demostración de terminal de extracción forense">
-      <div class="terminal-bar">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="fname">captureiq — extracción rápida</span>
-      </div>
-      <div class="terminal-body" id="termBody"></div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://wa.me/5493584260947" target="_blank" rel="noopener">Coordinar demostración →</a>
+      <a class="btn btn-ghost" href="#flujo">Ver el flujo completo</a>
     </div>
   </div>
 </section>
 
-<section id="captureiq">
+<section id="flujo">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Producto 01</div>
-      <h2>CaptureIQ</h2>
-      <p>Suite forense digital con 30+ módulos. Extracción, descifrado, análisis con IA local
-        y generación de informe pericial — todo desde un único flujo guiado.</p>
+      <div class="eyebrow">Cómo funciona</div>
+      <h2>Un flujo, cinco módulos, un solo PDF pericial.</h2>
+      <p>Cada paso queda registrado con su propio hash de integridad — el reporte final los reúne a todos.</p>
     </div>
 
     <div class="dossier">
       <div class="dossier-head">
         <div>
-          <div class="dossier-id">CAPTUREIQ · v3.5 · WINDOWS 10/11</div>
-          <div class="dossier-name">CaptureIQ</div>
-          <div class="dossier-tag">Android, iOS, PC, nube y 8 apps sociales con IA forense integrada en cada módulo.</div>
+          <div class="dossier-id">APORTEFORENSE SUITE · V2.0</div>
+          <div class="dossier-name">AporteForense Suite</div>
+          <div class="dossier-tag">Adquisición, captura, extracción, visualización pericial y análisis de riesgo — en un único flujo guiado.</div>
         </div>
-        <span class="status-pill pilot">ACCESO ANTICIPADO</span>
+        <span class="status-pill live">EN USO</span>
       </div>
       <div class="dossier-body">
         <div class="dossier-stats">
-          <div class="stat"><span class="n">31</span><span class="l">Módulos</span></div>
-          <div class="stat"><span class="n">8</span><span class="l">Apps sociales</span></div>
-          <div class="stat"><span class="n">AES-256</span><span class="l">Cifrado .ciq</span></div>
+          <div class="stat"><span class="n">5</span><span class="l">Módulos en un solo flujo</span></div>
           <div class="stat"><span class="n">100%</span><span class="l">IA local / offline</span></div>
+          <div class="stat"><span class="n">SHA-256</span><span class="l">Hash por cada archivo</span></div>
+          <div class="stat"><span class="n">ISO/IEC</span><span class="l">27037 · marco de referencia</span></div>
         </div>
 
-        <div class="video-slot" data-video="captureiq-demo">
+        <!--
+          Cuando tengas el video de 60 segundos, reemplazá el <div class="ph">
+          de abajo por:
+          <video autoplay muted loop playsinline poster="tu-poster.jpg">
+            <source src="aporteforense-demo.mp4" type="video/mp4">
+          </video>
+        -->
+        <div class="video-slot" data-video="aporteforense-demo">
           <div class="ph">
             <div class="play"></div>
-            <span class="vlabel">DEMO — FLUJO DE EXTRACCIÓN RÁPIDA (2:14)</span>
+            <span class="vlabel">DEMO — FLUJO COMPLETO (0:60)</span>
           </div>
         </div>
 
         <div class="module-list">
-          <div class="module-chip"><span class="dot"></span>WhatsApp + carving</div>
-          <div class="module-chip"><span class="dot"></span>Telegram inline IA</div>
-          <div class="module-chip"><span class="dot"></span>Signal SQLCipher</div>
-          <div class="module-chip"><span class="dot"></span>Crypt14/15 sin clave</div>
-          <div class="module-chip"><span class="dot"></span>Grafo de relaciones</div>
-          <div class="module-chip"><span class="dot"></span>Cripto rastreo on-chain</div>
-          <div class="module-chip"><span class="dot"></span>Geolocalización EXIF</div>
-          <div class="module-chip"><span class="dot"></span>Informe PDF pericial</div>
+          <div class="module-chip"><span class="dot"></span>01 · TwinIQ — adquisición</div>
+          <div class="module-chip"><span class="dot"></span>02 · AporteForense — captura</div>
+          <div class="module-chip"><span class="dot"></span>03 · Extractor DB — extracción</div>
+          <div class="module-chip"><span class="dot"></span>04 · AporteIQ — visualización</div>
+          <div class="module-chip"><span class="dot"></span>05 · IA Forense — análisis</div>
         </div>
 
         <div class="scope-note">
           <span class="scope-note-label">Alcance</span>
-          CaptureIQ opera sobre evidencia ya aportada o sobre dispositivos secuestrados
-          y desbloqueados. No incluye herramientas de desbloqueo ni explotación de
-          vulnerabilidades de hardware — esa etapa, cuando es necesaria, queda fuera
-          del alcance del software y corresponde a procedimientos previos del organismo.
+          AporteForense Suite opera sobre evidencia ya aportada o sobre dispositivos secuestrados
+          y desbloqueados. La extracción directa de la base de datos de WhatsApp aplica a Android;
+          en iPhone, el flujo trabaja sobre el chat ya exportado y aportado por el titular del
+          dispositivo. No incluye herramientas de desbloqueo ni explotación de vulnerabilidades de
+          hardware — esa etapa, cuando es necesaria, corresponde a procedimientos previos del organismo.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="aporteiq" class="tight">
+<section id="galeria" class="tight">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Producto 02 · nuevo foco</div>
-      <h2>AporteIQ</h2>
-      <p>Gestión de evidencia digital aportada o secuestrada, alineada a los lineamientos
-        de identificación, adquisición y preservación de ISO/IEC 27037. Pensado como
-        necesidad diaria de cualquier organismo que reciba evidencia digital, sin importar
-        la jurisdicción.</p>
+      <div class="eyebrow">En la práctica</div>
+      <h2>Así se ve el flujo, paso a paso.</h2>
+      <p>Espacios ya armados para tus propias capturas o videos cortos.</p>
     </div>
 
-    <div class="dossier">
-      <div class="dossier-head">
-        <div>
-          <div class="dossier-id">APORTEIQ · EN DESARROLLO</div>
-          <div class="dossier-name">AporteIQ</div>
-          <div class="dossier-tag">Registro, hash de preservación y trazabilidad de evidencia digital aportada por terceros o secuestrada en dispositivos ya desbloqueados.</div>
-        </div>
-        <span class="status-pill pilot">EN DESARROLLO</span>
-      </div>
-      <div class="dossier-body">
-        <div class="video-slot" data-video="aporteiq-demo">
+    <div class="galeria-grid">
+      <figure class="galeria-item">
+        <!--
+          Reemplazar por:
+          <video autoplay muted loop playsinline><source src="dispositivo.mp4" type="video/mp4"></video>
+          o, si es una foto fija, sacar la clase "video-slot" y poner directo:
+          <img src="dispositivo.jpg" alt="Dispositivo durante la adquisición" style="width:100%;border-radius:6px;">
+        -->
+        <div class="video-slot foto" data-video="dispositivo-demo">
           <div class="ph">
             <div class="play"></div>
-            <span class="vlabel">DEMO — APORTEIQ (PRÓXIMAMENTE)</span>
+            <span class="vlabel">IMAGEN — DISPOSITIVO EN PROCESO</span>
           </div>
         </div>
-        <div class="module-list">
-          <div class="module-chip"><span class="dot"></span>Identificación de fuente</div>
-          <div class="module-chip"><span class="dot"></span>Adquisición con hash</div>
-          <div class="module-chip"><span class="dot"></span>Preservación verificable</div>
-          <div class="module-chip"><span class="dot"></span>Cadena de custodia</div>
-        </div>
-        <div class="scope-note">
-          <span class="scope-note-label">Marco de referencia</span>
-          Diseñado siguiendo los lineamientos de ISO/IEC 27037 para identificación,
-          recolección, adquisición y preservación de evidencia digital — guías, no
-          procedimientos rígidos, lo que permite adaptarse a distintas jurisdicciones.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <figcaption>El teléfono del titular, durante la adquisición.</figcaption>
+      </figure>
 
-<section id="forensiq" class="tight">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Producto 03</div>
-      <h2>ForensIQ</h2>
-      <p>El primer producto de la familia IQ. En uso institucional en un organismo
-        de referencia.</p>
-    </div>
-
-    <div class="dossier">
-      <div class="dossier-head">
-        <div>
-          <div class="dossier-id">FORENSIQ · EN PRODUCCIÓN</div>
-          <div class="dossier-name">ForensIQ</div>
-          <div class="dossier-tag">Suite original de análisis forense digital, base de la familia ForensicSuite (TranscribeIQ, VideoIQ, LexIQ, WhatsAppIQ, GeoIQ).</div>
-        </div>
-        <span class="status-pill live">EN PRODUCCIÓN</span>
-      </div>
-      <div class="dossier-body">
-        <div class="video-slot" data-video="forensiq-demo">
+      <figure class="galeria-item">
+        <!-- Reemplazar por: <video autoplay muted loop playsinline><source src="ia-escribiendo.mp4" type="video/mp4"></video> -->
+        <div class="video-slot" data-video="ia-escribiendo-demo">
           <div class="ph">
             <div class="play"></div>
-            <span class="vlabel">DEMO — FORENSIQ EN USO REAL (PRÓXIMAMENTE)</span>
+            <span class="vlabel">VIDEO — INFORME DE IA GENERÁNDOSE</span>
           </div>
         </div>
-        <div class="module-list">
-          <div class="module-chip"><span class="dot"></span>TranscribeIQ</div>
-          <div class="module-chip"><span class="dot"></span>VideoIQ</div>
-          <div class="module-chip"><span class="dot"></span>LexIQ</div>
-          <div class="module-chip"><span class="dot"></span>WhatsAppIQ</div>
-          <div class="module-chip"><span class="dot"></span>GeoIQ</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <figcaption>El informe de riesgo, escribiéndose en tiempo real.</figcaption>
+      </figure>
 
-<section id="strikeiq" class="tight">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Novedad · v3.6</div>
-      <h2>StrikeIQ</h2>
-      <p>Un solo botón. El perito selecciona qué módulos necesita y CaptureIQ ejecuta
-        todo el flujo de forma automática: preservación de hash, extracción, descifrado,
-        análisis con IA e informe pericial final.</p>
-    </div>
-
-    <div class="dossier">
-      <div class="dossier-head">
-        <div>
-          <div class="dossier-id">STRIKEIQ · MÓDULO ORQUESTADOR · CAPTUREIQ v3.6</div>
-          <div class="dossier-name">StrikeIQ</div>
-          <div class="dossier-tag">Pensado para peritos que no necesitan recorrer 31 pestañas — tildan lo que precisan y ejecutan todo en una sola corrida.</div>
-        </div>
-        <span class="status-pill pilot">NUEVO</span>
-      </div>
-      <div class="dossier-body">
-        <div class="dossier-stats">
-          <div class="stat"><span class="n">1</span><span class="l">Botón de ejecución</span></div>
-          <div class="stat"><span class="n">2x</span><span class="l">Hash inicio/fin</span></div>
-          <div class="stat"><span class="n">6</span><span class="l">Módulos orquestables</span></div>
-          <div class="stat"><span class="n">PDF</span><span class="l">Informe automático</span></div>
-        </div>
-
-        <div class="video-slot" data-video="strikeiq-demo">
+      <figure class="galeria-item">
+        <!-- Reemplazar por: <video autoplay muted loop playsinline><source src="app-auxiliar.mp4" type="video/mp4"></video> -->
+        <div class="video-slot" data-video="app-auxiliar-demo">
           <div class="ph">
             <div class="play"></div>
-            <span class="vlabel">DEMO — STRIKEIQ, EXTRACCIÓN DE UN CLIC (PRÓXIMAMENTE)</span>
+            <span class="vlabel">VIDEO — APP AUXILIAR (PRÓXIMAMENTE)</span>
           </div>
         </div>
-
-        <div class="module-list">
-          <div class="module-chip"><span class="dot"></span>Hash de preservación</div>
-          <div class="module-chip"><span class="dot"></span>WhatsApp + Signal + Telegram</div>
-          <div class="module-chip"><span class="dot"></span>Crypt14/15 auto-descifrado</div>
-          <div class="module-chip"><span class="dot"></span>MercadoLibre forense</div>
-          <div class="module-chip"><span class="dot"></span>Verificación de integridad</div>
-          <div class="module-chip"><span class="dot"></span>Informe PDF + UFDRv2</div>
-        </div>
-      </div>
+        <figcaption>Cuando el registro de llamadas no se puede extraer directo, se instala una app puntual para eso — y se desinstala al terminar.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<section id="modulos">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Catálogo</div>
-      <h2>Módulos independientes</h2>
-      <p>Herramientas puntuales que pueden adoptarse por separado, fuera de la suite completa,
-        cada una con su propio motor de análisis IA.</p>
-    </div>
-
-    <div class="mod-grid">
-      <div class="mod-card">
-        <div class="num">M·01</div>
-        <h3>Extracción Nube</h3>
-        <p>Acceso a Google Drive, iCloud, Dropbox y OneDrive vía tokens OAuth2, con clasificación automática de archivos.</p>
-      </div>
-      <div class="mod-card">
-        <div class="num">M·02</div>
-        <h3>MercadoLibre Forense</h3>
-        <p>Identidad real, historial de ventas/compras y mensajería post-venta — clave en causas de estafa y reventa.</p>
-      </div>
-      <div class="mod-card">
-        <div class="num">M·03</div>
-        <h3>Cripto Rastreo</h3>
-        <p>Detección de wallets BTC/ETH/TRX en archivos del dispositivo con consulta directa a blockchain pública.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="integrity">
+<div class="integrity" id="custodia">
   <div class="wrap">
     <div class="integrity-text">
       <div class="eyebrow">Cadena de custodia</div>
-      <p>Cada extracción queda sellada con hash de integridad verificable antes y después
-        del proceso. Ningún dato sale del equipo del perito.</p>
+      <p>Cada módulo queda sellado con hash SHA-256 de integridad verificable. El PDF consolidado
+        reúne los hashes de todo el caso. Ningún dato sale del equipo del perito.</p>
     </div>
     <div class="hash-block">
-      <div><span class="label">sha256 </span>c60935a5b1d9...ec7d32</div>
+      <div><span class="label">sha256 </span>f227e669e11f60ed75f3...</div>
       <div><span class="label">estado </span>✓ verificado</div>
     </div>
   </div>
@@ -762,68 +384,10 @@
 
 <footer>
   <div class="wrap">
-    <span>IQ FORENSE DIGITAL</span>
+    <span>APORTEFORENSE SUITE</span>
     <span>USO PERICIAL EXCLUSIVO · 2026</span>
   </div>
 </footer>
-
-<script>
-(function(){
-  const lines = [
-    {t:"$ ", c:"prompt"},
-    {t:"captureiq extract --device R3CT90BXXXX --modules whatsapp,signal", c:""},
-    {t:"  ✓ Hash inicial calculado — preservación de integridad", c:"ok"},
-    {t:"  ✓ WhatsApp: 240 mensajes extraídos", c:"ok"},
-    {t:"  ✓ Signal: SQLCipher desbloqueado", c:"ok"},
-    {t:"  ✓ Hash final verificado — sin alteraciones", c:"ok"},
-    {t:"  → Generando informe pericial PDF...", c:"dim"},
-    {t:"$ ", c:"prompt"},
-  ];
-
-  const el = document.getElementById('termBody');
-  let i = 0;
-
-  function typeLine(line, container, cb){
-    const span = document.createElement('div');
-    span.className = 'line' + (line.c ? ' ' + line.c : '');
-    container.appendChild(span);
-    let chars = line.t.split('');
-    let idx = 0;
-    function step(){
-      span.textContent = line.t.slice(0, idx+1);
-      idx++;
-      if(idx < chars.length){
-        setTimeout(step, line.c === 'prompt' ? 60 : 14);
-      } else { cb(); }
-    }
-    step();
-  }
-
-  function run(){
-    if(i >= lines.length){
-      const cur = document.createElement('span');
-      cur.className = 'cursor';
-      el.lastElementChild.appendChild(cur);
-      return;
-    }
-    typeLine(lines[i], el, function(){
-      i++;
-      setTimeout(run, 220);
-    });
-  }
-
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    run();
-  } else {
-    lines.forEach(l => {
-      const d = document.createElement('div');
-      d.className = 'line' + (l.c ? ' ' + l.c : '');
-      d.textContent = l.t;
-      el.appendChild(d);
-    });
-  }
-})();
-</script>
 
 </body>
 </html>
