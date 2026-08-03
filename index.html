@@ -63,6 +63,14 @@
 
   /* ───────── hero (docket) ───────── */
   .docket{padding:96px 0 64px;border-bottom:1px solid var(--rule);}
+  .docket-grid{display:flex;gap:56px;align-items:center;}
+  .docket-col{flex:1 1 480px;min-width:0;}
+  .docket-img{flex:1 1 420px;min-width:280px;}
+  .docket-img img{width:100%;height:auto;border-radius:8px;border:1px solid var(--rule);display:block;}
+  @media (max-width:860px){
+    .docket-grid{flex-direction:column;}
+    .docket-img{order:-1;}
+  }
   .docket-label{
     font-family:var(--mono);font-size:12px;letter-spacing:0.18em;color:var(--amber);
     text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;
@@ -218,24 +226,30 @@
 </header>
 
 <section class="docket">
-  <div class="wrap">
-    <div class="docket-label">Expediente técnico · producto dedicado</div>
-    <h1 class="title">Evidencia digital de WhatsApp, lista para el <em>expediente</em>.</h1>
-    <p class="docket-sub">
-      AporteForense Suite adquiere, extrae, visualiza y certifica la cadena de custodia
-      de un chat de WhatsApp en un único flujo guiado — sin conexión a internet,
-      sin depender de que el perito abra la app en el dispositivo.
-    </p>
+  <div class="wrap docket-grid">
+    <div class="docket-col">
+      <div class="docket-label">Expediente técnico · producto dedicado</div>
+      <h1 class="title">Evidencia digital de WhatsApp, lista para el <em>expediente</em>.</h1>
+      <p class="docket-sub">
+        AporteForense Suite adquiere, extrae, visualiza y certifica la cadena de custodia
+        de un chat de WhatsApp en un único flujo guiado — sin conexión a internet,
+        sin depender de que el perito abra la app en el dispositivo.
+      </p>
 
-    <div class="docket-meta">
-      <div class="item"><span class="k">Origen</span><span class="v">Río Cuarto, Córdoba, AR</span></div>
-      <div class="item"><span class="k">Estado</span><span class="v verde">Disponible para demostración</span></div>
-      <div class="item"><span class="k">Marco de referencia</span><span class="v amber">ISO/IEC 27037</span></div>
+      <div class="docket-meta">
+        <div class="item"><span class="k">Origen</span><span class="v">Río Cuarto, Córdoba, AR</span></div>
+        <div class="item"><span class="k">Estado</span><span class="v verde">Disponible para demostración</span></div>
+        <div class="item"><span class="k">Marco de referencia</span><span class="v amber">ISO/IEC 27037</span></div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://wa.me/5493584260947" target="_blank" rel="noopener">Coordinar demostración →</a>
+        <a class="btn btn-ghost" href="#flujo">Ver el flujo completo</a>
+      </div>
     </div>
 
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="https://wa.me/5493584260947" target="_blank" rel="noopener">Coordinar demostración →</a>
-      <a class="btn btn-ghost" href="#flujo">Ver el flujo completo</a>
+    <div class="docket-img">
+      <img src="aporteiq-suite.png" alt="AporteIQ Suite — pantalla de módulos del flujo forense">
     </div>
   </div>
 </section>
